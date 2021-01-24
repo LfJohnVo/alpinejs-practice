@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alpine js</title>
+</head>
+
+<style>
+    .active {
+        border: 1px solid black;
+        background-color: darkkhaki;
+    }
+
+    .inactive {
+        border: 1px solid black;
+        background-color: blue;
+    }
+</style>
+
+<body>
+<div x-data="main()">
+    <!--imprime open -->
+    <p x-text="open"></p>
+    <!-- la funcion hace un if de open al dar click-->
+    <button @click="open = !open">cambiar</button>
+    <!-- si open es true , se muestra info -->
+    <p x-show="open">Hola mundo alpine</p>
+    <!-- a cierto atributos, se le pueden asignar variables js-->
+    <p x-bind:class="{ 'active': open, 'inactive': !open }">Parrafo con estilo</p>
+    <button x-bind:disabled="open">Pulsa</button>
+</div>
+
+<script>
+    function main(){
+        return{
+            open: false
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+
+
+</body>
+</html>
