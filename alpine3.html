@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alpine js eventos</title>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+</head>
+<style>
+    button {
+        padding: 100px;
+        color: white;
+    }
+</style>
+<body>
+<div x-data="main()">
+    <!-- detectar acciones con el mouse -->
+    <button x-on:click="onClick(event)" @mouseover="onMouseOver(event)" @mouseout="onMouseOut(event)">Boton tocar
+    </button>
+</div>
+
+<div x-data="secondary()">
+    <h1 x-text="texto"></h1>
+    <!-- cuando se pulse este campo, se modifica el texto -->
+    <input type="text" x-on:keydown.enter="onKeyPressEnter(event)">
+    <!-- cambia el texto en tiempo real -->
+    <input type="text" x-on:input="onInput(event)">
+    <!-- prevent default -->
+    <input type="checkbox" x-on:click.prevent>
+</div>
+
+<script>
+    function main() {
+        return {
+            onClick: function (event) {
+                console.log('Se a usado el boton');
+                console.log(event.target);
+            },
+            onMouseOver: function (event) {
+                event.target.style.backgroundColor = 'lightgreen';
+                event.target.style.color = 'black';
+            },
+            onMouseOut: function (event) {
+                event.target.style.backgroundColor = 'red';
+                event.target.style.color = 'green';
+            }
+        }
+    }
+
+    function secondary() {
+        return {
+            //asignar el valor del campo de texto a la variable del parrafo
+            texto: '',
+            onKeyPressEnter: function (event) {
+                this.texto = event.target.value;
+            },
+            onInput: function (event){
+                this.texto = event.target.value;
+            }
+        }
+    }
+</script>
+</body>
+</html>
