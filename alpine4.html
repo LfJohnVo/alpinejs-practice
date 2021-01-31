@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alpine js doble enlace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous" defer></script>
+</head>
+<body>
+
+<div x-data="main()">
+    <p x-text="texto"></p>
+
+    <input type="text" x-model="texto">
+    <input type="text" x-model.debounce.750="texto">
+    <button @click="onClick()">Mostrar variable</button>
+</div>
+
+<div x-data="formulario()">
+    <p x-text="persona.nombre"></p>
+    <p x-text="persona.apellidos"></p>
+    <p x-text="persona.edad"></p>
+    <p x-text="persona.email"></p>
+
+    <div class="form-group">
+        <label for="">Nombre</label>
+        <input type="text" x-model="persona.nombre">
+    </div>
+    <div class="form-group">
+        <label for="">apellidos</label>
+        <input type="text" x-model="persona.apellidos">
+    </div>
+    <div class="form-group">
+        <label for="">edad</label>
+        <input type="text" x-model="persona.edad">
+    </div>
+    <div class="form-group">
+        <label for="">email</label>
+        <input type="text" x-model="persona.email">
+    </div>
+    <button @click="sendForm()">Enviar Formulario</button>
+</div>
+
+<script>
+    function main() {
+        return {
+            texto: '',
+            onClick: function(){
+                console.log(this.texto);
+                setTimeout(() => this.texto = "Valor desde el timeout", 3000);
+            }
+        }
+    }
+
+    function formulario(){
+        return{
+            persona:{},
+            sendForm: function(){
+                console.log({ ...this.persona });
+            }
+        }
+    }
+</script>
+</body>
+</html>
